@@ -8,10 +8,19 @@
 // more than 40 at once, each apple only costs 1! Write a function that calculates
 // the price of an order of apples given the quantity bought. No hints this time!
 
-// I AM NOT DONE
-
 // Put your function here!
-// fn calculate_apple_price {
+fn calculate_apple_price(quantity: u16) -> u16 {
+    const discount_count: u16 = 40;
+    const basic_cost: u16 = 2;
+    const bulk_cost: u16 = 1;
+    if quantity <= discount_count {
+        return basic_cost * quantity;
+    } else {
+        return bulk_cost * quantity;
+    }
+
+
+}
 
 // Don't modify this function!
 #[test]
