@@ -4,18 +4,22 @@
 // It won't compile right now! Why?
 // Execute `rustlings hint errors5` for hints!
 
-// I AM NOT DONE
-
 use std::error;
 use std::fmt;
 use std::num::ParseIntError;
 
 // TODO: update the return type of `main()` to make this compile.
-fn main() -> Result<(), ParseIntError> {
+fn main() -> Result<(), CreationError> {
     let pretend_user_input = "42";
     let x: i64 = pretend_user_input.parse()?;
     println!("output={:?}", PositiveNonzeroInteger::new(x)?);
     Ok(())
+}
+
+impl From<ParseIntError> for CreationError {
+    fn from(_: ParseIntError) -> CreationError {
+        CreationError::Unknown
+    }
 }
 
 // Don't change anything below this line.
@@ -27,6 +31,7 @@ struct PositiveNonzeroInteger(u64);
 enum CreationError {
     Negative,
     Zero,
+    Unknown,
 }
 
 impl PositiveNonzeroInteger {
@@ -45,6 +50,7 @@ impl fmt::Display for CreationError {
         let description = match *self {
             CreationError::Negative => "number is negative",
             CreationError::Zero => "number is zero",
+            CreationError::Unknown => "value not a number"
         };
         f.write_str(description)
     }
